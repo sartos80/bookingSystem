@@ -1,4 +1,7 @@
 package com.example.bookingsystem.repo;
 
-public interface KundRepo {
+import com.example.bookingsystem.models.Kund;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface KundRepo  extends BokningRepo<Kund, Long> {
 }
