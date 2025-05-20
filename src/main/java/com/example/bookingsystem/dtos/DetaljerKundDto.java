@@ -15,7 +15,5 @@ public class DetaljerKundDto {
     private String epost;
     private String telefonnummer;
     private BokningDto bokningar; // List of minimal booking DTOs
-
-    // Constructors, getters, setters
 }
 
