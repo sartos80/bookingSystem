@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -18,7 +18,7 @@ public class Bokning {
     @Id
     @GeneratedValue
     private Long id;
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name="kundId", referencedColumnName = "id")
