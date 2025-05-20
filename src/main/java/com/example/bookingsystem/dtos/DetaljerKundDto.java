@@ -14,6 +14,6 @@ public class DetaljerKundDto {
     private String name;
     private String epost;
     private String telefonnummer;
-    private BokningDto bokningar; // List of minimal booking DTOs
+    private List<BokningDto> bokningar; // List of minimal booking DTOs
 }
 
