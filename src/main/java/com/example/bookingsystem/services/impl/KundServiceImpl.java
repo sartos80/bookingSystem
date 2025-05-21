@@ -12,48 +12,48 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class KundServiceImpl implements KundService {
-    private  KundRepo kundRepo;
-    private  final BokningService bokningService;
-    public KundServiceImpl(KundRepo kundRepo, BokningService bokningService) {
-        this.kundRepo = kundRepo;
-        this.bokningService = bokningService;
-    }
-    @Override
-    public List<DetaljerKundDto> getAllKunder() {
-        // Hämtar alla kunder och mappar till DetaljerKundDto
-        return kundRepo.findAll().stream()
-                .map(kund -> kundToDetaljerKundDto(kund))
-                .toList();
-    }
-
-    @Override
-    public String addKund(DetaljerKundDto kund) {
-        kundRepo.save(DetaljerKundDtoToKund(kund));
-        return "kunden har sparat ";
-
-    }
-
-    @Override
-    public KundDto kundToKundDto(Kund k) {
-        return KundDto.builder().id(k.getId()).name(k.getName()).build();
-    }
-
-    @Override
-    public DetaljerKundDto kundToDetaljerKundDto(Kund k) {
-        return DetaljerKundDto.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer())
-                .bokningar(k.getBokningar().stream().map(bokning -> BokningServiceImpl.bokningToBokningDto(bokning)).toList()).build();
-
-    }
-
-    @Override
-    public Kund DetaljerKundDtoToKund(DetaljerKundDto k) {
-        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).build();
-    }
-
-
-}
+//@Service
+//public class KundServiceImpl implements KundService {
+//    private  KundRepo kundRepo;
+//    private  final BokningService bokningService;
+//    public KundServiceImpl(KundRepo kundRepo, BokningService bokningService) {
+//        this.kundRepo = kundRepo;
+//        this.bokningService = bokningService;
+//    }
+//    @Override
+//    public List<DetaljerKundDto> getAllKunder() {
+//        // Hämtar alla kunder och mappar till DetaljerKundDto
+//        return kundRepo.findAll().stream()
+//                .map(kund -> kundToDetaljerKundDto(kund))
+//                .toList();
+//    }
+//
+//    @Override
+//    public String addKund(DetaljerKundDto kund) {
+//        kundRepo.save(DetaljerKundDtoToKund(kund));
+//        return "kunden har sparat ";
+//
+//    }
+//
+//    @Override
+//    public KundDto kundToKundDto(Kund k) {
+//        return KundDto.builder().id(k.getId()).name(k.getName()).build();
+//    }
+//
+////    @Override
+////    public DetaljerKundDto kundToDetaljerKundDto(Kund k) {
+////        return DetaljerKundDto.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer())
+////                .bokningar(k.getBokningar().stream().map(bokning -> BokningServiceImpl.bokningToBokningDto(bokning)).toList()).build();
+////
+////    }
+//
+//    @Override
+//    public Kund DetaljerKundDtoToKund(DetaljerKundDto k) {
+//        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).build();
+//    }
+//
+//
+//}
 
 
 
