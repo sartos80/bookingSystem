@@ -16,9 +16,16 @@ import java.util.List;
 public class KundServiceImpl implements KundService {
     private  KundRepo kundRepo;
     private  final BokningService bokningService;
+    public KundServiceImpl(KundRepo kundRepo, BokningService bokningService) {
+        this.kundRepo = kundRepo;
+        this.bokningService = bokningService;
+    }
     @Override
     public List<DetaljerKundDto> getAllKunder() {
-        return kundRepo.findAll().stream().map(k -> kundToDetaljerKundDto(k)).toList();
+        // Hämtar alla kunder och mappar till DetaljerKundDto
+        return kundRepo.findAll().stream()
+                .map(kund -> kundToDetaljerKundDto(kund)) // Använd lambda istället för referensmetod
+                .toList();
     }
     @Override
     public KundDto kundToKundDto(Kund k) {
