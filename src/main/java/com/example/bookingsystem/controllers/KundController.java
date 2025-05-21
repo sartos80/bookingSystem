@@ -1,7 +1,9 @@
 package com.example.bookingsystem.controllers;
 
+import com.example.bookingsystem.dtos.DetaljerKundDto;
 import com.example.bookingsystem.models.Kund;
 import com.example.bookingsystem.repo.KundRepo;
+import com.example.bookingsystem.services.KundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +14,10 @@ import java.util.List;
 @       Controller
 @RequiredArgsConstructor
 public class KundController {
-    private final KundRepo kundRepo;
+    private final KundService kundService;
     @RequestMapping("kunder")
-    public List<Kund>getAllKunder(){
-        return kundRepo.findAll();
+    public List<DetaljerKundDto>getAllKunder(){
+        return kundService.getAllKunder();
 
     }
 }
