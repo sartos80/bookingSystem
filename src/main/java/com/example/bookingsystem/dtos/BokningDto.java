@@ -15,5 +15,4 @@ public class BokningDto
 {
     private Long id;
     private LocalDate date;
-    private RumDto rum;
 }
