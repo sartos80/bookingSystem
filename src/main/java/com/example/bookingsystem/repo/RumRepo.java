@@ -1,4 +1,7 @@
 package com.example.bookingsystem.repo;
 
-public interface RumRepo {
+import com.example.bookingsystem.models.Rum;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RumRepo extends JpaRepository<Rum, Long> {
 }
