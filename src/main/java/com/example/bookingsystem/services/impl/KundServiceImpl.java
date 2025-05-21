@@ -11,11 +11,13 @@ import com.example.bookingsystem.services.KundService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
 @Service
 public class KundServiceImpl implements KundService {
+
     private  KundRepo kundRepo;
     private  final BokningService bokningService;
+
     public KundServiceImpl(KundRepo kundRepo, BokningService bokningService) {
         this.kundRepo = kundRepo;
         this.bokningService = bokningService;
@@ -42,5 +44,7 @@ public class KundServiceImpl implements KundService {
 
 }
 
+
+ */
 
 
