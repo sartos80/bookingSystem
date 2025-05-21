@@ -27,6 +27,14 @@ public class KundServiceImpl implements KundService {
                 .map(kund -> kundToDetaljerKundDto(kund))
                 .toList();
     }
+
+    @Override
+    public String addKund(DetaljerKundDto kund) {
+        kundRepo.save(DetaljerKundDtoToKund(kund));
+        return "kunden har sparat ";
+
+    }
+
     @Override
     public KundDto kundToKundDto(Kund k) {
         return KundDto.builder().id(k.getId()).name(k.getName()).build();
@@ -37,6 +45,11 @@ public class KundServiceImpl implements KundService {
         return DetaljerKundDto.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer())
                 .bokningar(k.getBokningar().stream().map(bokning -> BokningServiceImpl.bokningToBokningDto(bokning)).toList()).build();
 
+    }
+
+    @Override
+    public Kund DetaljerKundDtoToKund(DetaljerKundDto k) {
+        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).build();
     }
 
 
