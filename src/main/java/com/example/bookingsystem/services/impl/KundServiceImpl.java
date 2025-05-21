@@ -24,7 +24,7 @@ public class KundServiceImpl implements KundService {
     public List<DetaljerKundDto> getAllKunder() {
         // Hämtar alla kunder och mappar till DetaljerKundDto
         return kundRepo.findAll().stream()
-                .map(kund -> kundToDetaljerKundDto(kund)) // Använd lambda istället för referensmetod
+                .map(kund -> kundToDetaljerKundDto(kund))
                 .toList();
     }
     @Override
