@@ -13,6 +13,6 @@ public interface KundService {
     // metod för att hämta all kunder
     public List<DetaljerKundDto> getAllKunder();
     // metod för skapa ny kund
-    public Kund addKund(DetaljerKundDto kund);
+    public DetaljerKundDto addKund(DetaljerKundDto kund);
 }
 
