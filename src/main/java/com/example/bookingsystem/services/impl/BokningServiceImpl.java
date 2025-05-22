@@ -64,10 +64,19 @@ public class BokningServiceImpl implements BokningService
     }
 
     @Override
-    public String updateBokning(DetaljerBokningDto bokning)
-    {
+    public DetaljerBokningDto updateBokning(DetaljerBokningDto bokningDto) {
+        Bokning bokning = bokningRepo.findById(bokningDto.getId()).orElse(null);
+        if (bokning == null) return null;
 
-        return "Bokning uppdaterad";
+        Kund kund = kundRepo.findById(bokningDto.getKund().getId()).orElse(null);
+        Rum rum = rumRepo.findById(bokningDto.getRum().getId()).orElse(null);
+        if (kund == null || rum == null) return null;
+
+        bokning.setDate(bokningDto.getDate());
+        bokning.setKund(kund);
+        bokning.setRum(rum);
+
+        return bokningToDetaljerBokningDto(bokningRepo.save(bokning));
     }
 
     @Override
