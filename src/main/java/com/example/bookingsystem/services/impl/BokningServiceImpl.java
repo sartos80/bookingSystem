@@ -36,20 +36,26 @@ public class BokningServiceImpl implements BokningService
     }
 
     @Override
-    public String addBokning(DetaljerBokningDto bokning)
+    public DetaljerBokningDto addBokning(DetaljerBokningDto bokning)
     {
         Kund kund = kundRepo.findById(bokning.getKund().getId()).get();
         Rum rum = rumRepo.findById(bokning.getRum().getId()).get();
 
-        if (bokningRepo.redanBokat(rum, bokning.getDate())){
-            return "Redan bokat, testa ett annat rum eller datum";
+        if (bokningRepo.redanBokat(rum, bokning.getDate())) {
+            return DetaljerBokningDto.builder()
+                    .id(null)
+                    .date(bokning.getDate())
+                    .kund(bokning.getKund())
+                    .rum(bokning.getRum())
+                    .build();
         }
-        bokningRepo.save(detaljerBokningDtoToBokning(bokning, kund, rum));
-        return "Bokning tillagd";
+
+        Bokning sparadBokning = bokningRepo.save(detaljerBokningDtoToBokning(bokning, kund, rum));
+        return bokningToDetaljerBokningDto(sparadBokning);
     }
 
     @Override
-    public String deleteBokning(Long bokningsId)
+    public DetaljerBokningDto deleteBokning(Long bokningsId)
     {
         if(!bokningRepo.existsById(bokningsId)){
             return "Ingen bokning hittades med id  " + bokningsId;
