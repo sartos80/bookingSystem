@@ -14,11 +14,12 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping(path="/kunder")
 public class KundController {
 
     private final KundService kundService;
 
-    @RequestMapping("/kunder")
+    @RequestMapping("/all")
     public String getAllKunder(Model model) {
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
         model.addAttribute("kunder", kunder);
