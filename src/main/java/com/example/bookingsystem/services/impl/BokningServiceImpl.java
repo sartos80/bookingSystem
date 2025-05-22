@@ -55,13 +55,12 @@ public class BokningServiceImpl implements BokningService
     }
 
     @Override
-    public DetaljerBokningDto deleteBokning(Long bokningsId)
-    {
-        if(!bokningRepo.existsById(bokningsId)){
-            return "Ingen bokning hittades med id  " + bokningsId;
+    public boolean deleteBokning(Long bokningsId) {
+        if (!bokningRepo.existsById(bokningsId)) {
+            return false;  // Finns inte, kan inte ta bort
         }
         bokningRepo.deleteById(bokningsId);
-        return "Bokning raderad";
+        return true;  // Borttagning lyckades
     }
 
     @Override
