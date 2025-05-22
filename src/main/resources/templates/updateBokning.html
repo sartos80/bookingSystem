@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="kund">
+  <table>
+    <th th:text="${name}"></th>
+    <tbody>
+    <tr>
+      <td th:text="${kund.epost}"></td>
+    </tr>
+    <tr>
+      <td th:text="${kund.telefonnummer}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
