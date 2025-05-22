@@ -21,10 +21,10 @@ public class Bokning {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name="kundId", referencedColumnName = "id")
+    @JoinColumn(name="kund_Id")
     private Kund kund;
 
     @ManyToOne
-    @JoinColumn(name="rumId", referencedColumnName = "id")
+    @JoinColumn(name="rum_id")
     private Rum rum;
 }
