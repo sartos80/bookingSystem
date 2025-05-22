@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class BokningServiceImpl implements BokningService
 {
-
     private final KundRepo kundRepo;
     private final RumRepo rumRepo;
     private final BokningRepo bokningRepo;
@@ -39,8 +38,8 @@ public class BokningServiceImpl implements BokningService
     @Override
     public String addBokning(DetaljerBokningDto bokning)
     {
-        Kund kund = kundRepo.findById(bokning.getKund().getId()).get().getKund();
-        Rum rum = rumRepo.findById(bokning.getRum().getId()).get().getRum();
+        Kund kund = kundRepo.findById(bokning.getKund().getId()).get();
+        Rum rum = rumRepo.findById(bokning.getRum().getId()).get();
 
         if (bokningRepo.redanBokat(rum, bokning.getDate())){
             return "Redan bokat, testa ett annat rum eller datum";
@@ -79,7 +78,7 @@ public class BokningServiceImpl implements BokningService
                 .id(bokning.getId())
                 .date(bokning.getDate())
                 .kund(new KundDto(bokning.getKund().getId(), bokning.getKund().getName()))
-                .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType()))
+                .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType(), bokning.getRum().getCapacity()))
                 .build();
     }
 

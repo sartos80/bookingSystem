@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 //Behövs inte?
 public class RumDto {
-    private int id;
+    private Long id;
     private String type;
     private int capacity;
 
