@@ -19,9 +19,9 @@ public interface BokningService {
 
     public List<DetaljerBokningDto> getAllBokningar();
 
-    public String addBokning(DetaljerBokningDto bokning);
+    public DetaljerBokningDto addBokning(DetaljerBokningDto bokning);
 
-    public String deleteBokning(Long bokningsId);
+    public boolean deleteBokning(Long bokningsId);
 
-    public String updateBokning(DetaljerBokningDto bokning);
+    public DetaljerBokningDto updateBokning(DetaljerBokningDto bokning);
 }
