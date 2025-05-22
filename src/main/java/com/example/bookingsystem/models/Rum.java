@@ -20,6 +20,6 @@ public class Rum {
     private int capacity;
     private String type;
 
-    @OneToMany(mappedBy = "rumid", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rum", cascade = CascadeType.ALL)
     private List<Bokning> bokningar;
 }
