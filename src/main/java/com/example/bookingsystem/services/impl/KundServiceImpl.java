@@ -34,6 +34,21 @@ public class KundServiceImpl implements KundService {
     }
 
     @Override
+    public DetaljerKundDto getKundById(Long id) {
+        return kundRepo.findById(id)
+                .map(kund -> kundToDetaljerKundDto(kund))
+                .orElse(null);
+    }
+
+    @Override
+    public void deleteKund(Long id) {
+        if (kundRepo.existsById(id)) {
+            kundRepo.deleteById(id);
+        }
+        //  om kunden inte finns
+    }
+
+    @Override
     public KundDto kundToKundDto(Kund k) {
         return KundDto.builder().id(k.getId()).name(k.getName()).build();
     }
