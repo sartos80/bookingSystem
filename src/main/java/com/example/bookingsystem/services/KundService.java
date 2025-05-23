@@ -14,5 +14,8 @@ public interface KundService {
     public List<DetaljerKundDto> getAllKunder();
     // metod för skapa ny kund
     public DetaljerKundDto addKund(DetaljerKundDto kund);
+    DetaljerKundDto getKundById(Long id);
+
+    void deleteKund(Long id);
 }
 
