@@ -7,10 +7,7 @@ import com.example.bookingsystem.services.KundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,18 +17,43 @@ import java.util.List;
 public class KundController {
 
     private final KundService kundService;
-// metod för att hämta alla kunder
-    @RequestMapping("/all")
-    public String getAllKunder(Model model) {
-        List<DetaljerKundDto> kunder = kundService.getAllKunder();
-        model.addAttribute("kunder", kunder);
-        return "kunder";
-    }
-    // metod för skapa ny kund
-    @PostMapping("/add")
-    public String addKund(@ModelAttribute DetaljerKundDto kund) {
-        kundService.addKund(kund);
-        return "redirect:/kunder/all";
 
+    @GetMapping("/addkund")
+    public String getKundForm(Model model) {
+        model.addAttribute("kund", new DetaljerKundDto());
+        return "kunderForm";
+    }
+
+    @PostMapping("/postKund")
+    public String postKund(@ModelAttribute DetaljerKundDto kundDto) {
+        kundService.addKund(kundDto);
+        return "redirect:/kunder/kunderAll";
+    }
+
+    @GetMapping("/kunderAll")
+    public String getAllKunder(Model model) {
+        model.addAttribute("allKunder", kundService.getAllKunder());
+        model.addAttribute("name", "Kunder");
+        return "kunderAll";
+    }
+
+    @GetMapping("/deleteKund/{id}")
+    public String deleteKund(@PathVariable Long id) {
+        kundService.deleteKund(id);
+        return "redirect:/kunder/kunderAll";
+    }
+
+    @GetMapping("/updateKund/{id}")
+    public String updateKund(@PathVariable Long id, Model model) {
+        DetaljerKundDto kund = kundService.getKundById(id);
+        model.addAttribute("kund", kund);
+        model.addAttribute("name", kund.getName());
+        return "updateBokning";
+    }
+
+    @PostMapping("/updateKund")
+    public String updateKund(@ModelAttribute DetaljerKundDto kundDto) {
+        kundService.addKund(kundDto); // addKund hanterar både ny & uppdaterad pga ID
+        return "redirect:/kunder/kunderAll";
     }
 }
