@@ -42,10 +42,14 @@ public class KundServiceImpl implements KundService {
 
     @Override
     public void deleteKund(Long id) {
-        if (kundRepo.existsById(id)) {
+        Kund kund = kundRepo.findById(id).orElse(null);
+
+        if (kund != null && (kund.getBokningar() == null || kund.getBokningar().isEmpty())) {
             kundRepo.deleteById(id);
+            System.out.println(" Kunden med ID " + id + " togs bort.");
+        } else {
+            System.out.println(" Kunden med ID " + id + " har bokningar och kunde inte tas bort.");
         }
-        //  om kunden inte finns
     }
 
     @Override
