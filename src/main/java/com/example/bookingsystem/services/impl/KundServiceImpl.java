@@ -41,7 +41,7 @@ public class KundServiceImpl implements KundService {
     @Override
     public DetaljerKundDto kundToDetaljerKundDto(Kund k) {
         return DetaljerKundDto.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer())
-                .bokningar(k.getBokningar().stream().map(bokning -> BokningServiceImpl.bokningToBokningDto(bokning)).toList()).build();
+                .bokningar(k.getBokningar().stream().map(bokningService::bokningToBokningDto).toList()).build();
 
     }
 
