@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="kund">
+  <table>
+    <th th:text="${name}"></th>
+    <tbody>
+    <tr>
+      <td th:text="${kund.epost}"></td>
+    </tr>
+    <tr>
+      <td th:text="${kund.telefonnummer}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<form action="/kunder/postKund" method="post">
+  <input type="hidden" id="id" name="id" th:value="${kund.id}">
+  <label for="name">Namn</label>
+  <input type="text" id="name" name="name" th:value="${kund.name}"><br>
+  <label for="epost" >E-post</label>
+  <input type="text" id="epost" name="epost" th:value="${kund.epost}"><br>
+  <label for="telefonnummer" >Telefonummer</label>
+  <input type="text" id="telefonnummer" name="telefonnummer " th:value="${kund.telefonnummer}"><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

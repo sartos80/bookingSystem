@@ -48,7 +48,7 @@ public class KundController {
         DetaljerKundDto kund = kundService.getKundById(id);
         model.addAttribute("kund", kund);
         model.addAttribute("name", kund.getName());
-        return "updateBokning";
+        return "updateKund";
     }
 
     @PostMapping("/updateKund")
