@@ -14,5 +14,6 @@ public class RumDto {
     private Long id;
     private String type;
     private int capacity;
+    private int extraBeds;
 
 }

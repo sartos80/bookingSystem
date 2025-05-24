@@ -102,7 +102,8 @@ public class BokningServiceImpl implements BokningService
                 .date(bokning.getDate())
                 .endDate(bokning.getEndDate())
                 .kund(new KundDto(bokning.getKund().getId(), bokning.getKund().getName()))
-                .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType(), bokning.getRum().getCapacity()))
+                .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType(),
+                        bokning.getRum().getCapacity(),bokning.getRum().getExtraBeds()))
                 .build();
     }
 

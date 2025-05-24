@@ -19,6 +19,7 @@ public class Rum {
     //1 3 eller 4
     private int capacity;
     private String type;
+    private int extraBeds;
 
     @OneToMany(mappedBy = "rum", cascade = CascadeType.ALL)
     private List<Bokning> bokningar;
