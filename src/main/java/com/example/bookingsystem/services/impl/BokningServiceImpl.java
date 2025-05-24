@@ -82,7 +82,7 @@ public class BokningServiceImpl implements BokningService
     @Override
     public BokningDto bokningToBokningDto(Bokning bokning)
     {
-        return BokningDto.builder().id(bokning.getId()).date(bokning.getDate()).build();
+        return BokningDto.builder().id(bokning.getId()).date(bokning.getDate()).rum(bokning.getRum().getId()).build();
     }
 
     @Override

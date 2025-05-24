@@ -14,5 +14,7 @@ import java.time.LocalDate;
 public class BokningDto
 {
     private Long id;
+    private Long rum;
     private LocalDate date;
+    private LocalDate endDate;
 }

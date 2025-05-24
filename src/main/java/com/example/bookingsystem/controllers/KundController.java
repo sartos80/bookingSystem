@@ -1,8 +1,10 @@
 package com.example.bookingsystem.controllers;
 
+import com.example.bookingsystem.dtos.DetaljerBokningDto;
 import com.example.bookingsystem.dtos.DetaljerKundDto;
 import com.example.bookingsystem.models.Kund;
 import com.example.bookingsystem.repo.KundRepo;
+import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.List;
 public class KundController {
 
     private final KundService kundService;
+    private final BokningService bokningService;
 
     @GetMapping("/addKund")
     public String getKundForm(Model model) {
@@ -51,9 +54,25 @@ public class KundController {
         return "updateKund";
     }
 
+    @GetMapping("/addBokning/{id}")
+    public String addBokning(@PathVariable Long id, Model model) {
+        DetaljerKundDto kund = kundService.getKundById(id);
+        model.addAttribute("kund", kund);
+        model.addAttribute("name", kund.getName());
+        return "addBokning";
+    }
+
+    @PostMapping("/postBokning")
+    public String postBokning(@ModelAttribute DetaljerBokningDto kundDto) {
+        bokningService.addBokning(kundDto);//
+        return "redirect:/kunder/kunderAll";
+    }
+/*
     @PostMapping("/updateKund")
     public String updateKund(@ModelAttribute DetaljerKundDto kundDto) {
         kundService.addKund(kundDto); // addKund hanterar både ny & uppdaterad pga ID
         return "redirect:/kunder/kunderAll";
     }
+
+ */
 }

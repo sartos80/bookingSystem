@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class DetaljerBokningDto {
     private Long id;
     private LocalDate date;
+    private LocalDate endDate;
     private KundDto kund;
     private RumDto rum;
 }

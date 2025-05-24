@@ -5,21 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-<h2 th:text="${name}"></h2>
 <div class="allKunder" th:unless="${#lists.isEmpty(allKunder)}">
     <table>
         <th th:text="${name}"></th>
-        <tbody>
-        <tr th:each="kund : ${allKunder}">
+        <tbody th:each="kund : ${allKunder}">
+        <tr>
             <td th:text="${kund.name}">
-
             </td>
             <td>
                 <a th:href="@{/kunder/updateKund/{id}(id=${kund.id})}">Update</a>
+                <a th:href="@{/kunder/deleteKund/{id}(id=${kund.id})}">Delete</a>
+                <a th:href="@{/kunder/addBokning/{id}(id=${kund.id})}">Add Bokning</a>
             </td>
             <td>
-                <a th:href="@{/kunder/deleteKund/{id}(id=${kund.id})}">Delete</a>
             </td>
+            <td>
+            </td>
+        </tr>
+        <tr th:each="bokning : ${kund.bokningar}">
+            <td th:text="'Date: '+ ${bokning.date}"></td>
+            <td th:text="'RumNr: '+ ${bokning.rum}"></td>
         </tr>
         </tbody>
     </table>
