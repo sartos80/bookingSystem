@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ public class Bokning {
     @GeneratedValue
     private Long id;
     private LocalDate date;
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name="kund_Id")

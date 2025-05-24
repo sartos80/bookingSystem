@@ -24,4 +24,6 @@ public interface BokningService {
     public boolean deleteBokning(Long bokningsId);
 
     public DetaljerBokningDto updateBokning(DetaljerBokningDto bokning);
+
+    public DetaljerBokningDto getBokningById(Long id);
 }

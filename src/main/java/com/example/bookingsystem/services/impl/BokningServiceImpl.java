@@ -1,9 +1,6 @@
 package com.example.bookingsystem.services.impl;
 
-import com.example.bookingsystem.dtos.BokningDto;
-import com.example.bookingsystem.dtos.DetaljerBokningDto;
-import com.example.bookingsystem.dtos.KundDto;
-import com.example.bookingsystem.dtos.RumDto;
+import com.example.bookingsystem.dtos.*;
 import com.example.bookingsystem.models.Bokning;
 import com.example.bookingsystem.models.Kund;
 import com.example.bookingsystem.models.Rum;
@@ -36,19 +33,29 @@ public class BokningServiceImpl implements BokningService
     }
 
     @Override
+    public DetaljerBokningDto getBokningById(Long id) {
+        return bokningRepo.findById(id)
+                .map(bokning -> bokningToDetaljerBokningDto(bokning))
+                .orElse(null);
+    }
+
+    @Override
     public DetaljerBokningDto addBokning(DetaljerBokningDto bokning)
     {
         Kund kund = kundRepo.findById(bokning.getKund().getId()).get();
         Rum rum = rumRepo.findById(bokning.getRum().getId()).get();
-
+/*
         if (bokningRepo.existsByRumAndDate(rum, bokning.getDate())) {
             return DetaljerBokningDto.builder()
                     .id(null)
                     .date(bokning.getDate())
+                    .endDate(bokning.getEndDate())
                     .kund(bokning.getKund())
                     .rum(bokning.getRum())
                     .build();
         }
+        //TODO kommentera bort för att den krocka med att uppdatera endDate.
+ */
 
         Bokning sparadBokning = bokningRepo.save(detaljerBokningDtoToBokning(bokning, kund, rum));
         return bokningToDetaljerBokningDto(sparadBokning);
@@ -91,6 +98,7 @@ public class BokningServiceImpl implements BokningService
         return DetaljerBokningDto.builder()
                 .id(bokning.getId())
                 .date(bokning.getDate())
+                .endDate(bokning.getEndDate())
                 .kund(new KundDto(bokning.getKund().getId(), bokning.getKund().getName()))
                 .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType(), bokning.getRum().getCapacity()))
                 .build();
@@ -102,6 +110,7 @@ public class BokningServiceImpl implements BokningService
         return Bokning.builder()
                 .id(detaljerBokningDto.getId())
                 .date(detaljerBokningDto.getDate())
+                .endDate(detaljerBokningDto.getEndDate())
                 .kund(k)
                 .rum(r)
                 .build();

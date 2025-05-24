@@ -63,9 +63,23 @@ public class KundController {
     }
 
     @PostMapping("/postBokning")
-    public String postBokning(@ModelAttribute DetaljerBokningDto kundDto) {
-        bokningService.addBokning(kundDto);//
+    public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
+        bokningService.addBokning(bokningDto);//
         return "redirect:/kunder/kunderAll";
+    }
+
+    @GetMapping("/deleteBokning/{id}")
+    public String deleteBokning(@PathVariable Long id) {
+        bokningService.deleteBokning(id);
+        return "redirect:/kunder/kunderAll";
+    }
+
+    @GetMapping("/updateBokning/{id}")
+    public String updateBokning(@PathVariable Long id, Model model) {
+        DetaljerBokningDto bokning = bokningService.getBokningById(id);
+        model.addAttribute("name", "Bokning");
+        model.addAttribute("bokning", bokning);
+        return "updateBokning";
     }
 /*
     @PostMapping("/updateKund")

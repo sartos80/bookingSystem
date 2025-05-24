@@ -13,9 +13,8 @@
             <td th:text="${kund.name}">
             </td>
             <td>
-                <a th:href="@{/kunder/updateKund/{id}(id=${kund.id})}">Update</a>
-                <a th:href="@{/kunder/deleteKund/{id}(id=${kund.id})}">Delete</a>
-                <a th:href="@{/kunder/addBokning/{id}(id=${kund.id})}">Add Bokning</a>
+                <a th:href="@{/kunder/updateKund/{id}(id=${kund.id})}">Update Info</a>
+                <a th:href="@{/kunder/deleteKund/{id}(id=${kund.id})}" th:unless="${!#lists.isEmpty(kund.bokningar)}">Delete</a>
             </td>
             <td>
             </td>
@@ -25,6 +24,18 @@
         <tr th:each="bokning : ${kund.bokningar}">
             <td th:text="'Date: '+ ${bokning.date}"></td>
             <td th:text="'RumNr: '+ ${bokning.rum}"></td>
+            <td>
+                <a th:href="@{/kunder/deleteBokning/{id}(id=${bokning.id})}">Avboka</a>
+                <a th:href="@{/kunder/updateBokning/{id}(id=${bokning.id})}">Update</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a th:href="@{/kunder/addBokning/{id}(id=${kund.id})}">Add Bokning</a>
+            </td>
+        </tr>
+        <tr>
+            <td>--------------------------</td>
         </tr>
         </tbody>
     </table>

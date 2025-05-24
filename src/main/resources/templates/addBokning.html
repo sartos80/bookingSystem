@@ -21,9 +21,11 @@
 <form action="/kunder/postBokning" method="post">
     <input type="hidden" id="kundId" name="kund.id" th:value="${kund.id}">
     <input type="hidden" id="kundNamn" name="kund.name" th:value="${kund.id}">
-    <label for="date">Date</label>
+    <label for="date">Start Datum</label>
     <input type="date" id="date" name="date"><br>
-    <label for="rumId" >RumID</label>
+    <label for="endDate">Slut Datum</label>
+    <input type="date" id="endDate" name="endDate"><br>
+    <label for="rumId" >RumNr</label>
     <input type="text" id="rumId" name="rum.id" value="1-4"><br>
     <input type="submit" value="Submit">
 </form>
