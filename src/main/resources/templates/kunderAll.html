@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<!--<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>-->
 <body>
 <div class="allKunder" th:unless="${#lists.isEmpty(allKunder)}">
     <table>
@@ -16,13 +21,9 @@
                 <a th:href="@{/kunder/updateKund/{id}(id=${kund.id})}">Update Info</a>
                 <a th:href="@{/kunder/deleteKund/{id}(id=${kund.id})}" th:unless="${!#lists.isEmpty(kund.bokningar)}">Delete</a>
             </td>
-            <td>
-            </td>
-            <td>
-            </td>
         </tr>
         <tr th:each="bokning : ${kund.bokningar}">
-            <td th:text="'Date: '+ ${bokning.date}"></td>
+            <td th:text="'Date: '+ ${bokning.date} +' to ' + ${bokning.endDate}"></td>
             <td th:text="'RumNr: '+ ${bokning.rum}"></td>
             <td>
                 <a th:href="@{/kunder/deleteBokning/{id}(id=${bokning.id})}">Avboka</a>
@@ -34,15 +35,15 @@
                 <a th:href="@{/kunder/addBokning/{id}(id=${kund.id})}">Add Bokning</a>
             </td>
         </tr>
-        <tr>
+       <tr>
             <td>--------------------------</td>
         </tr>
         </tbody>
     </table>
-    <p>
-        <a th:href="@{/kunder/addKund}">Add Kund</a>
-    </p>
 </div>
+<p>
+    <a th:href="@{/kunder/addKund}">Add Kund</a>
+</p>
 
 </body>
 </html>

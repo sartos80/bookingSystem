@@ -2,10 +2,12 @@ package com.example.bookingsystem.services;
 
 import com.example.bookingsystem.dtos.BokningDto;
 import com.example.bookingsystem.dtos.DetaljerBokningDto;
+import com.example.bookingsystem.dtos.DetaljerRumDto;
 import com.example.bookingsystem.models.Bokning;
 import com.example.bookingsystem.models.Kund;
 import com.example.bookingsystem.models.Rum;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BokningService {

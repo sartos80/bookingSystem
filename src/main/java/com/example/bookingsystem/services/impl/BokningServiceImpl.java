@@ -10,6 +10,7 @@ import com.example.bookingsystem.repo.RumRepo;
 import com.example.bookingsystem.services.BokningService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -89,7 +90,8 @@ public class BokningServiceImpl implements BokningService
     @Override
     public BokningDto bokningToBokningDto(Bokning bokning)
     {
-        return BokningDto.builder().id(bokning.getId()).date(bokning.getDate()).rum(bokning.getRum().getId()).build();
+        return BokningDto.builder().id(bokning.getId()).date(bokning.getDate()).endDate(bokning.getEndDate())
+                .rum(bokning.getRum().getId()).build();
     }
 
     @Override

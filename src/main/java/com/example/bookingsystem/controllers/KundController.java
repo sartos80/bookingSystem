@@ -6,12 +6,15 @@ import com.example.bookingsystem.models.Kund;
 import com.example.bookingsystem.repo.KundRepo;
 import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
+import com.example.bookingsystem.services.RumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class KundController {
 
     private final KundService kundService;
     private final BokningService bokningService;
+    private final RumService rumService;
 
     @GetMapping("/addKund")
     public String getKundForm(Model model) {
@@ -59,14 +63,10 @@ public class KundController {
         DetaljerKundDto kund = kundService.getKundById(id);
         model.addAttribute("kund", kund);
         model.addAttribute("name", kund.getName());
-        return "addBokning";
+        return "rumSearch";
     }
 
-    @PostMapping("/postBokning")
-    public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
-        bokningService.addBokning(bokningDto);//
-        return "redirect:/kunder/kunderAll";
-    }
+
 
     @GetMapping("/deleteBokning/{id}")
     public String deleteBokning(@PathVariable Long id) {
@@ -80,6 +80,23 @@ public class KundController {
         model.addAttribute("name", "Bokning");
         model.addAttribute("bokning", bokning);
         return "updateBokning";
+    }
+
+    @GetMapping("/postBokning/{id}")
+    public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
+        bokningService.addBokning(bokningDto);//
+        return "redirect:/kunder/kunderAll";
+    }
+
+    @GetMapping("/searchRum")
+    public String searchRum(@RequestParam LocalDate date,
+                            @RequestParam LocalDate endDate,
+                            @RequestParam Long kundId, Model model) {
+        DetaljerKundDto kund = kundService.getKundById(kundId);
+          model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
+          model.addAttribute("kund",kund );
+        model.addAttribute("name", kund.getName());
+        return "addBokning";
     }
 /*
     @PostMapping("/updateKund")
