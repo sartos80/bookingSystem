@@ -41,7 +41,7 @@ public class BokningServiceImpl implements BokningService
         Kund kund = kundRepo.findById(bokning.getKund().getId()).get();
         Rum rum = rumRepo.findById(bokning.getRum().getId()).get();
 
-        if (bokningRepo.redanBokat(rum, bokning.getDate())) {
+        if (bokningRepo.existsByRumAndDate(rum, bokning.getDate())) {
             return DetaljerBokningDto.builder()
                     .id(null)
                     .date(bokning.getDate())

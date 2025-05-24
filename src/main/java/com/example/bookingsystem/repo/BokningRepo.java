@@ -8,5 +8,5 @@ import java.time.LocalDate;
 
 public interface BokningRepo extends JpaRepository<Bokning, Long>
 {
-    public boolean redanBokat(Rum rum, LocalDate date);
+    public boolean existsByRumAndDate(Rum rum, LocalDate date);
 }
