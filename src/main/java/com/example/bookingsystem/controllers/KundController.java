@@ -18,7 +18,7 @@ public class KundController {
 
     private final KundService kundService;
 
-    @GetMapping("/addkund")
+    @GetMapping("/addKund")
     public String getKundForm(Model model) {
         model.addAttribute("kund", new DetaljerKundDto());
         return "kunderForm";

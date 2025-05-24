@@ -29,8 +29,10 @@ public class KundServiceImpl implements KundService {
     }
 
     @Override
-    public DetaljerKundDto addKund(DetaljerKundDto kundDto) {
-        return kundToDetaljerKundDto(kundRepo.save(DetaljerKundDtoToKund(kundDto)));
+    //public DetaljerKundDto addKund(DetaljerKundDto kundDto) {
+    public void addKund(DetaljerKundDto kundDto) {
+        kundRepo.save(DetaljerKundDtoToKund(kundDto));
+        //return kundToDetaljerKundDto(kundRepo.save(DetaljerKundDtoToKund(kundDto)));
     }
 
     @Override
