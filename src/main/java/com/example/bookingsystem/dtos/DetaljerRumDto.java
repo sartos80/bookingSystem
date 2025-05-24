@@ -14,6 +14,6 @@ public class DetaljerRumDto {
     private Long id;
     private String type;
     private int capacity;
-    private int extraBeds;
+    private int MaxExtraBeds;
     private List<BokningDto> bokningar;
 }

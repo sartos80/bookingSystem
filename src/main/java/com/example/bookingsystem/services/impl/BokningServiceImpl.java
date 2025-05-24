@@ -90,7 +90,11 @@ public class BokningServiceImpl implements BokningService
     @Override
     public BokningDto bokningToBokningDto(Bokning bokning)
     {
-        return BokningDto.builder().id(bokning.getId()).date(bokning.getDate()).endDate(bokning.getEndDate())
+        return BokningDto.builder()
+                .id(bokning.getId())
+                .date(bokning.getDate())
+                .endDate(bokning.getEndDate())
+                .extraBeds(bokning.getExtraBeds())
                 .rum(bokning.getRum().getId()).build();
     }
 
@@ -101,9 +105,10 @@ public class BokningServiceImpl implements BokningService
                 .id(bokning.getId())
                 .date(bokning.getDate())
                 .endDate(bokning.getEndDate())
+                .extraBeds(bokning.getExtraBeds())
                 .kund(new KundDto(bokning.getKund().getId(), bokning.getKund().getName()))
                 .rum(new RumDto(bokning.getRum().getId(), bokning.getRum().getType(),
-                        bokning.getRum().getCapacity(),bokning.getRum().getExtraBeds()))
+                        bokning.getRum().getCapacity(),bokning.getRum().getMaxExtraBeds()))
                 .build();
     }
 
@@ -114,6 +119,7 @@ public class BokningServiceImpl implements BokningService
                 .id(detaljerBokningDto.getId())
                 .date(detaljerBokningDto.getDate())
                 .endDate(detaljerBokningDto.getEndDate())
+                .extraBeds(detaljerBokningDto.getExtraBeds())
                 .kund(k)
                 .rum(r)
                 .build();
@@ -122,6 +128,11 @@ public class BokningServiceImpl implements BokningService
     @Override
     public Bokning bokningDtoToBokning(BokningDto bokningDto)
     {
-        return Bokning.builder().id(bokningDto.getId()).date(bokningDto.getDate()).build();
+        return Bokning.builder()
+                .id(bokningDto.getId())
+                .date(bokningDto.getDate())
+                .endDate(bokningDto.getEndDate())
+                .extraBeds(bokningDto.getExtraBeds())
+                .build();
     }
 }

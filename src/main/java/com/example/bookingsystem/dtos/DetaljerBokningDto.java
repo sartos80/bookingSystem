@@ -15,6 +15,7 @@ public class DetaljerBokningDto {
     private Long id;
     private LocalDate date;
     private LocalDate endDate;
+    private int extraBeds;
     private KundDto kund;
     private RumDto rum;
 }

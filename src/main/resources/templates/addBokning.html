@@ -7,13 +7,16 @@
 <body>
 <div class="kund">
     <table>
-        <th th:text="${name}"></th>
+        <th th:text="${kund.name}"></th>
         <tbody>
         <tr>
             <td th:text="${kund.epost}"></td>
         </tr>
         <tr>
             <td th:text="${kund.telefonnummer}"></td>
+        </tr>
+        <tr>
+            <td th:text="${date} +' to '+ ${endDate}"></td>
         </tr>
         </tbody>
     </table>
@@ -24,9 +27,15 @@
         <th>Rum</th>
         <tbody th:each="rum : ${rumFound}">
         <tr>
-            <td th:text="${rum.id}"></td>
+            <td th:text="'RumNr: '+ ${rum.id}"></td>
             <td>
-                <a th:href="@{/kunder/postBokning/{id}(id=${rum.id})}">Boka</a>
+                <form action="/kunder/postBokning" method="post">
+                    <input type="hidden" id="kund.id" name="kund.id" th:value="${kund.id}">
+                    <input type="hidden" id="rum.id" name="rum.id" th:value="${rum.id}">
+                    <input type="hidden" id="date" name="date" th:value="${date}">
+                    <input type="hidden" id="endDate" name="endDate" th:value="${endDate}">
+                    <input type="submit" value="boka">
+                </form>
             </td>
         </tbody>
     </table>

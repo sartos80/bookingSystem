@@ -59,7 +59,7 @@ public class RumServiceImpl implements RumService {
                 .id(rum.getId())
                 .type(rum.getType())
                 .capacity(rum.getCapacity())
-                .extraBeds(rum.getExtraBeds())
+                .MaxExtraBeds(rum.getMaxExtraBeds())
                 .bokningar(rum.getBokningar().stream().map(bokningService::bokningToBokningDto).toList())
                 .build();
     }

@@ -82,7 +82,7 @@ public class KundController {
         return "updateBokning";
     }
 
-    @GetMapping("/postBokning/{id}")
+    @PostMapping("/postBokning")
     public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
         bokningService.addBokning(bokningDto);//
         return "redirect:/kunder/kunderAll";
@@ -93,9 +93,12 @@ public class KundController {
                             @RequestParam LocalDate endDate,
                             @RequestParam Long kundId, Model model) {
         DetaljerKundDto kund = kundService.getKundById(kundId);
-          model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
-          model.addAttribute("kund",kund );
-        model.addAttribute("name", kund.getName());
+        model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
+        model.addAttribute("kund",kund );
+        //model.addAttribute("name", kund.getName());
+        model.addAttribute("date", date);
+        model.addAttribute("endDate", endDate);
+
         return "addBokning";
     }
 /*

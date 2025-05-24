@@ -17,4 +17,5 @@ public class BokningDto
     private Long rum;
     private LocalDate date;
     private LocalDate endDate;
+    private int extraBeds;
 }

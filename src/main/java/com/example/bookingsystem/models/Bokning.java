@@ -21,6 +21,7 @@ public class Bokning {
     private Long id;
     private LocalDate date;
     private LocalDate endDate;
+    private int extraBeds;
 
     @ManyToOne
     @JoinColumn(name="kund_Id")
