@@ -80,8 +80,6 @@ class BookingSystemApplicationTests {
         assertTrue(allaKunder.stream().map(k -> k.getEpost()).toList().contains("stina@mail"));
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
     }
-
-
     /*public void addKundTest(){
         kundService.addKund(detaljerKundDto2);
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
