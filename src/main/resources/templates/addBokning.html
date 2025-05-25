@@ -34,6 +34,14 @@
                     <input type="hidden" id="rum.id" name="rum.id" th:value="${rum.id}">
                     <input type="hidden" id="date" name="date" th:value="${date}">
                     <input type="hidden" id="endDate" name="endDate" th:value="${endDate}">
+                    <label for="extraBeds">Extra Sängar</label>
+                    <select id="extraBeds" name="extraBeds">
+                        <option th:each="i : ${#numbers.sequence(0,rum.MaxExtraBeds)}"
+                                th:value="${i}"
+                                th:text="${i}"
+                        >
+                        </option>
+                    </select>
                     <input type="submit" value="boka">
                 </form>
             </td>

@@ -18,4 +18,6 @@ public class BokningDto
     private LocalDate date;
     private LocalDate endDate;
     private int extraBeds;
+    private String type;
+
 }

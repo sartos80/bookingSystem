@@ -95,7 +95,9 @@ public class BokningServiceImpl implements BokningService
                 .date(bokning.getDate())
                 .endDate(bokning.getEndDate())
                 .extraBeds(bokning.getExtraBeds())
-                .rum(bokning.getRum().getId()).build();
+                .rum(bokning.getRum().getId())
+                .type(bokning.getRum().getType())
+                .build();
     }
 
     @Override

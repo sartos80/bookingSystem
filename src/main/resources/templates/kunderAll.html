@@ -25,6 +25,8 @@
         <tr th:each="bokning : ${kund.bokningar}">
             <td th:text="'Date: '+ ${bokning.date} +' to ' + ${bokning.endDate}"></td>
             <td th:text="'RumNr: '+ ${bokning.rum}"></td>
+            <td th:text="${bokning.type}+','"></td>
+            <td th:text="'Extra Sängar: '+${bokning.extraBeds} "></td>
             <td>
                 <a th:href="@{/kunder/deleteBokning/{id}(id=${bokning.id})}">Avboka</a>
                 <a th:href="@{/kunder/updateBokning/{id}(id=${bokning.id})}">Update</a>
