@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title><!--DeDtoKund DeDtoBokning   -->
+</head>
+<body>
+<div class="kund">
+    <table>
+        <th th:text="${kund.name}"></th>
+        <tbody>
+        <tr>
+            <td th:text="${kund.epost}"></td>
+        </tr>
+        <tr>
+            <td th:text="${kund.telefonnummer}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<form action="/kunder/updateSearchRum" method="get">
+    <input type="hidden" id="bokningId" name="bokningId" th:value="${bokning.id}">
+    <label for="date">Start Datum</label>
+    <input type="date" id="date" name="date"><br>
+    <label for="endDate">Slut Datum</label>
+    <input type="date" id="endDate" name="endDate"><br>
+    <input type="submit" value="Hitta Rum">
+</form>
+</body>
+</html>

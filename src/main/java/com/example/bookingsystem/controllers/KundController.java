@@ -2,8 +2,6 @@ package com.example.bookingsystem.controllers;
 
 import com.example.bookingsystem.dtos.DetaljerBokningDto;
 import com.example.bookingsystem.dtos.DetaljerKundDto;
-import com.example.bookingsystem.models.Kund;
-import com.example.bookingsystem.repo.KundRepo;
 import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
 import com.example.bookingsystem.services.RumService;
@@ -13,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +24,7 @@ public class KundController {
     @GetMapping("/addKund")
     public String getKundForm(Model model) {
         model.addAttribute("kund", new DetaljerKundDto());
-        return "kunderForm";
+        return "addKund";
     }
 
     @PostMapping("/postKund")
@@ -62,24 +58,22 @@ public class KundController {
     public String addBokning(@PathVariable Long id, Model model) {
         DetaljerKundDto kund = kundService.getKundById(id);
         model.addAttribute("kund", kund);
-        model.addAttribute("name", kund.getName());
-        return "rumSearch";
-    }
-
-
-
-    @GetMapping("/deleteBokning/{id}")
-    public String deleteBokning(@PathVariable Long id) {
-        bokningService.deleteBokning(id);
-        return "redirect:/kunder/kunderAll";
+        return "addRumSearch";
     }
 
     @GetMapping("/updateBokning/{id}")
     public String updateBokning(@PathVariable Long id, Model model) {
         DetaljerBokningDto bokning = bokningService.getBokningById(id);
-        model.addAttribute("name", "Bokning");
+        DetaljerKundDto kund = kundService.getKundById(bokning.getKund().getId());
+        model.addAttribute("kund", kund);
         model.addAttribute("bokning", bokning);
-        return "updateBokning";
+        return "updateRumSearch";
+    }
+
+    @GetMapping("/deleteBokning/{id}")
+    public String deleteBokning(@PathVariable Long id) {
+        bokningService.deleteBokning(id);
+        return "redirect:/kunder/kunderAll";
     }
 
     @PostMapping("/postBokning")
@@ -88,25 +82,30 @@ public class KundController {
         return "redirect:/kunder/kunderAll";
     }
 
-    @GetMapping("/searchRum")
+    @GetMapping("/addSearchRum")
     public String searchRum(@RequestParam LocalDate date,
                             @RequestParam LocalDate endDate,
                             @RequestParam Long kundId, Model model) {
-        DetaljerKundDto kund = kundService.getKundById(kundId);
         model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
-        model.addAttribute("kund",kund );
+        model.addAttribute("kund",kundService.getKundById(kundId));
         //model.addAttribute("name", kund.getName());
         model.addAttribute("date", date);
         model.addAttribute("endDate", endDate);
 
         return "addBokning";
     }
-/*
-    @PostMapping("/updateKund")
-    public String updateKund(@ModelAttribute DetaljerKundDto kundDto) {
-        kundService.addKund(kundDto); // addKund hanterar både ny & uppdaterad pga ID
-        return "redirect:/kunder/kunderAll";
-    }
 
- */
+    @GetMapping("/updateSearchRum")
+    public String updateSearchRum(@RequestParam LocalDate date,
+                            @RequestParam LocalDate endDate,
+                            @RequestParam Long bokningId, Model model) {
+        DetaljerBokningDto bokning = bokningService.getBokningById(bokningId);
+        model.addAttribute("rumFound", rumService.findEmptyRumIgnoreCurrent(date,endDate,bokning));
+        model.addAttribute("kund",kundService.getKundById(bokning.getKund().getId()));
+        model.addAttribute("bokning",bokning );
+        model.addAttribute("date", date);
+        model.addAttribute("endDate", endDate);
+
+        return "updateBokning";
+    }
 }
