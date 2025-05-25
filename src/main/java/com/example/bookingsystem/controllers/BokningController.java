@@ -26,4 +26,32 @@ public class BokningController {
     private final BokningService bokningService;
     private final RumService rumService;
 
+
+    @GetMapping("/addBokning/{id}")
+    public String addBokning(@PathVariable Long id, Model model) {
+        DetaljerKundDto kund = kundService.getKundById(id);
+        model.addAttribute("kund", kund);
+        return "addRumSearch";
+    }
+
+    @GetMapping("/updateBokning/{id}")
+    public String updateBokning(@PathVariable Long id, Model model) {
+        DetaljerBokningDto bokning = bokningService.getBokningById(id);
+        DetaljerKundDto kund = kundService.getKundById(bokning.getKund().getId());
+        model.addAttribute("kund", kund);
+        model.addAttribute("bokning", bokning);
+        return "updateRumSearch";
+    }
+
+    @GetMapping("/deleteBokning/{id}")
+    public String deleteBokning(@PathVariable Long id) {
+        bokningService.deleteBokning(id);
+        return "redirect:/kunder/kunderAll";
+    }
+
+    @PostMapping("/postBokning")
+    public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
+        bokningService.addBokning(bokningDto);//
+        return "redirect:/kunder/kunderAll";
+    }
 }
