@@ -96,9 +96,11 @@ public class BookingSystemApplicationControllerTest
     public void postKundTest() throws Exception
     {
         String json = """
-                "name":"Hans,
+                {
+                "name":"Hans",
                 "epost":"hans@mail.com",
                 "telefonnummer":"0731234567"
+                }
                 """;
 
         mockMvc.perform(post("/kunder/postKund")

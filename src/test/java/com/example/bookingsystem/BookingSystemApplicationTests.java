@@ -84,10 +84,10 @@ class BookingSystemApplicationTests {
         assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Stina"));
     }
 
-    @Test
+  /*  @Test
     public void deleteKundByIdTest(){
 
-    }
+    }*/
 
 
     @Test
