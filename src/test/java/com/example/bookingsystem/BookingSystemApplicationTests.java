@@ -16,6 +16,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,6 +64,9 @@ class BookingSystemApplicationTests {
     {
         bokningRepo.deleteAll();
         kundRepo.deleteAll();
+        // Säkerställ att bokningar-listan inte är null
+        kund1.setBokningar(new ArrayList<>());
+        kund2.setBokningar(new ArrayList<>());
         kundRepo.save(kund1);
         kundRepo.save(kund2);
     }
@@ -77,17 +81,27 @@ class BookingSystemApplicationTests {
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
     }
 
-    @Test
-    public void addKundTest(){
+
+    /*public void addKundTest(){
         kundService.addKund(detaljerKundDto2);
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
         assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Stina"));
+    }*/
+    @Test
+    public void addKundTest(){
+        DetaljerKundDto nyKund = new DetaljerKundDto(null, "Pelle", "pelle@mail.com", "0701234567", List.of());
+
+        kundService.addKund(nyKund);
+        List<DetaljerKundDto> kunder = kundService.getAllKunder();
+
+        assertEquals(3, kunder.size());
+        assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Pelle"));
     }
 
-  /*  @Test
+    @Test
     public void deleteKundByIdTest(){
 
-    }*/
+    }
 
 
     @Test
