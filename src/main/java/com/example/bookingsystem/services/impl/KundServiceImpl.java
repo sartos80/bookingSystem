@@ -68,7 +68,7 @@ public class KundServiceImpl implements KundService {
 
     @Override
     public Kund DetaljerKundDtoToKund(DetaljerKundDto k) {
-        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).build();
+        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).bokningar(List.of()).build();
     }
 
 

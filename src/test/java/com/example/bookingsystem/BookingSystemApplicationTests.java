@@ -77,6 +77,35 @@ class BookingSystemApplicationTests {
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
     }
 
+    @Test
+    public void addKund(){
+        DetaljerKundDto nyKund = new DetaljerKundDto(null, "Pelle", "pelle@mail.com", "0701234567", List.of());
+
+        kundService.addKund(nyKund);
+        List<DetaljerKundDto> kunder = kundService.getAllKunder();
+
+        assertEquals(3, kunder.size());
+        assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Pelle"));
+    }
+
+    @Test
+    public void getKundByIdTest(){
+        DetaljerKundDto kund = kundService.getKundById(kund1.getId());
+        assertEquals(kund.getName(), kund1.getName());
+        assertEquals(kund.getEpost(), kund1.getEpost());
+        assertNotEquals(kund.getBokningar(), kund2.getTelefonnummer());
+    }
+
+    @Test
+    public void deleteKundByIdTest()
+    {
+        kundService.deleteKund(kund1.getId());
+        List<DetaljerKundDto> kunder = kundService.getAllKunder();
+        assertFalse(kunder.contains(kund1));
+        assertTrue(kunder.stream().map(k -> k.getName()).toList().contains(kund2.getName()));
+        System.out.println(kunder + " här");
+    }
+
 
     @Test
     public void kundToKundDtoTest(){
