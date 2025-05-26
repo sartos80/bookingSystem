@@ -21,9 +21,9 @@ public class Rum {
 
     // Antal ordinarie sängplatser : 1 till 4
     @Min(value = 1, message = "capacity must be at least 1")
-    @Max(value = 4, message = "capacity cannot be more than  2")
+    @Max(value = 4, message = "capacity cannot be more than  4")
     private int capacity;
-    // typ av rum (Enkelrum eller Dubbelrum)
+    // typ av rum (Enkelrum ,  Dubbelrum , familyjerum)
     @NotBlank(message = "Romm type must not be empty")
     private String type;
     // Antal tillåtna extra sängplatser : 0 till 1
