@@ -24,6 +24,14 @@
     <input type="date" id="date" name="date"><br>
     <label for="endDate">Slut Datum</label>
     <input type="date" id="endDate" name="endDate"><br>
+    <label for="guestNr">Antal Gäster</label>
+    <select id="guestNr" name="capacity">
+        <option th:each="i : ${#numbers.sequence(0,capacity)}"
+                th:value="${i}"
+                th:text="${i}"
+        >
+        </option>
+    </select>
     <input type="submit" value="Hitta Rum">
 </form>
 </body>

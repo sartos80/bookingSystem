@@ -20,14 +20,18 @@
 </div>
 <form action="/kunder/addSearchRum" method="get">
   <input type="hidden" id="kundId" name="kundId" th:value="${kund.id}">
-  <!--
-
-  <input type="hidden" id="kundNamn" name="kund.name" th:value="${kund.id}">
-  -->
   <label for="date">Start Datum</label>
-  <input type="date" id="date" name="date"><br>
+  <input type="date" id="date" name="date" required><br>
   <label for="endDate">Slut Datum</label>
-  <input type="date" id="endDate" name="endDate"><br>
+  <input type="date" id="endDate" name="endDate" required><br>
+  <label for="extraBeds">Antal Gäster</label>
+  <select id="extraBeds" name="capacity">
+    <option th:each="i : ${#numbers.sequence(0,capacity)}"
+            th:value="${i}"
+            th:text="${i}"
+    >
+    </option>
+  </select>
   <input type="submit" value="Hitta Rum">
 </form>
 </body>

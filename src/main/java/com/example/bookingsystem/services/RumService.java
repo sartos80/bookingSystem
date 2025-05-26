@@ -11,8 +11,9 @@ import java.util.List;
 
 public interface RumService {
 
-    public List<DetaljerRumDto> findEmptyRum(LocalDate date, LocalDate endDate);
+    public List<DetaljerRumDto> findEmptyRum(LocalDate date, LocalDate endDate, int capacity);
+    public List<DetaljerRumDto> findEmptyRumIgnoreCurrent(LocalDate date, LocalDate endDate, int capacity, DetaljerBokningDto bokning);
+    public int roomMaxCapacity();
     public DetaljerRumDto rumToDetaljerRumDTO(Rum rum);
-    public List<DetaljerRumDto> findEmptyRumIgnoreCurrent(LocalDate date, LocalDate endDate, DetaljerBokningDto bokning);
 
 }

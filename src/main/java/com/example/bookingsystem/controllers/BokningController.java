@@ -31,6 +31,7 @@ public class BokningController {
     public String addBokning(@PathVariable Long id, Model model) {
         DetaljerKundDto kund = kundService.getKundById(id);
         model.addAttribute("kund", kund);
+        model.addAttribute("capacity", rumService.roomMaxCapacity());
         return "addRumSearch";
     }
 
@@ -40,6 +41,7 @@ public class BokningController {
         DetaljerKundDto kund = kundService.getKundById(bokning.getKund().getId());
         model.addAttribute("kund", kund);
         model.addAttribute("bokning", bokning);
+        model.addAttribute("capacity", rumService.roomMaxCapacity());
         return "updateRumSearch";
     }
 

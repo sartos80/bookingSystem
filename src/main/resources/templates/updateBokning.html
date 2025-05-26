@@ -27,7 +27,7 @@
     <th>Rum</th>
     <tbody th:each="rum : ${rumFound}">
     <tr>
-      <td th:text="'RumNr: '+ ${rum.id}"></td>
+      <td th:text="'Nr:'+ ${rum.id}+' '+${rum.type}+', '"></td>
       <td>
         <form action="/kunder/postBokning" method="post">
           <input type="hidden" id="id" name="id" th:value="${bokning.id}">

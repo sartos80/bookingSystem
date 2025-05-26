@@ -22,8 +22,9 @@ public class RumController {
     @GetMapping("/addSearchRum")
     public String searchRum(@RequestParam LocalDate date,
                             @RequestParam LocalDate endDate,
-                            @RequestParam Long kundId, Model model) {
-        model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
+                            @RequestParam Long kundId,
+                            @RequestParam int capacity ,Model model) {
+        model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate,capacity));
         model.addAttribute("kund",kundService.getKundById(kundId));
         //model.addAttribute("name", kund.getName());
         model.addAttribute("date", date);
@@ -35,9 +36,10 @@ public class RumController {
     @GetMapping("/updateSearchRum")
     public String updateSearchRum(@RequestParam LocalDate date,
                                   @RequestParam LocalDate endDate,
-                                  @RequestParam Long bokningId, Model model) {
+                                  @RequestParam Long bokningId,
+                                  @RequestParam int capacity ,Model model) {
         DetaljerBokningDto bokning = bokningService.getBokningById(bokningId);
-        model.addAttribute("rumFound", rumService.findEmptyRumIgnoreCurrent(date,endDate,bokning));
+        model.addAttribute("rumFound", rumService.findEmptyRumIgnoreCurrent(date,endDate,capacity,bokning));
         model.addAttribute("kund",kundService.getKundById(bokning.getKund().getId()));
         model.addAttribute("bokning",bokning );
         model.addAttribute("date", date);
