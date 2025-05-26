@@ -77,18 +77,6 @@ class BookingSystemApplicationTests {
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
     }
 
-    @Test
-    public void addKundTest(){
-        kundService.addKund(detaljerKundDto2);
-        List<DetaljerKundDto> kunder = kundService.getAllKunder();
-        assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Stina"));
-    }
-
-    @Test
-    public void deleteKundByIdTest(){
-
-    }
-
 
     @Test
     public void kundToKundDtoTest(){

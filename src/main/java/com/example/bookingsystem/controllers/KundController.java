@@ -5,9 +5,11 @@ import com.example.bookingsystem.dtos.DetaljerKundDto;
 import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
 import com.example.bookingsystem.services.RumService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -28,7 +30,10 @@ public class KundController {
     }
 
     @PostMapping("/postKund")
-    public String postKund(@ModelAttribute DetaljerKundDto kundDto) {
+    public String postKund(@Valid @ModelAttribute("kund") DetaljerKundDto kundDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "kunderForm";
+        }
         kundService.addKund(kundDto);
         return "redirect:/kunder/kunderAll";
     }
