@@ -50,8 +50,6 @@ class BookingSystemApplicationTests {
         LocalDate date1 = LocalDate.of(2025, 7, 1);
         LocalDate date2 = LocalDate.of(2025, 6, 2);
 
-    //BokningDto bokningDto1 = new BokningDto(null,date1);
-    //BokningDto bokningDto2 = new BokningDto(null,date2);
 
         Kund kund1 = new Kund(null, name1, email1, phone1, List.of());
         Kund kund2 = new Kund(null, name2, email2, phone2, List.of());
@@ -80,11 +78,7 @@ class BookingSystemApplicationTests {
         assertTrue(allaKunder.stream().map(k -> k.getEpost()).toList().contains("stina@mail"));
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
     }
-    /*public void addKundTest(){
-        kundService.addKund(detaljerKundDto2);
-        List<DetaljerKundDto> kunder = kundService.getAllKunder();
-        assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Stina"));
-    }*/
+
     @Test
     public void addKundTest(){
         DetaljerKundDto nyKund = new DetaljerKundDto(null, "Pelle", "pelle@mail.com", "0701234567", List.of());
