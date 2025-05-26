@@ -107,17 +107,6 @@ public class BookingSystemApplicationControllerTest
         assertEquals(3, kundRepo.findAll().size());
     }
 
-    /*@Test försök igen när valieringen funkar
-    public void postKund_ogiltigInput_visarValideringsfel() throws Exception {
-        mockMvc.perform(post("/kunder/postKund")
-                        .param("name", "")  // Ogiltigt
-                        .param("epost", "inteenmail")
-                        .param("telefonnummer", ""))
-                .andExpect(status().isOk())
-                .andExpect(view().name("addKund"))  // Sidan laddas om
-                .andExpect(model().attributeHasFieldErrors("kund", "name", "epost", "telefonnummer"));
-    }*/
-
     @Test
     public void deleteKundTest() throws Exception
     {
@@ -145,6 +134,4 @@ public class BookingSystemApplicationControllerTest
                 .andExpect(model().attribute("name", "Cecar"));
 
     }
-
-
 }

@@ -10,6 +10,7 @@ import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,7 +69,7 @@ public class KundServiceImpl implements KundService {
 
     @Override
     public Kund DetaljerKundDtoToKund(DetaljerKundDto k) {
-        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).bokningar(List.of()).build();
+        return Kund.builder().id(k.getId()).name(k.getName()).epost(k.getEpost()).telefonnummer(k.getTelefonnummer()).bokningar(new ArrayList<>()).build();
     }
 
 
