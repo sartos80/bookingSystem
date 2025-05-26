@@ -24,13 +24,24 @@ public class RumController {
                             @RequestParam LocalDate endDate,
                             @RequestParam Long kundId,
                             @RequestParam int capacity ,Model model) {
-        model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate,capacity));
-        model.addAttribute("kund",kundService.getKundById(kundId));
-        //model.addAttribute("name", kund.getName());
-        model.addAttribute("date", date);
-        model.addAttribute("endDate", endDate);
 
-        return "addBokning";
+        model.addAttribute("kund",kundService.getKundById(kundId));
+
+        if(rumService.findEmptyRum(date,endDate,capacity) != null) {
+
+            model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate,capacity));
+            model.addAttribute("date", date);
+            model.addAttribute("endDate", endDate);
+            return "addBokning";
+
+        } else {
+
+            model.addAttribute("capacity", capacity);
+            model.addAttribute("error", "Start datum måste vara innan slut datum");
+            return "addRumSearch";
+        }
+
+
     }
 
     @GetMapping("/updateSearchRum")
@@ -38,14 +49,26 @@ public class RumController {
                                   @RequestParam LocalDate endDate,
                                   @RequestParam Long bokningId,
                                   @RequestParam int capacity ,Model model) {
+
+
         DetaljerBokningDto bokning = bokningService.getBokningById(bokningId);
-        model.addAttribute("rumFound", rumService.findEmptyRumIgnoreCurrent(date,endDate,capacity,bokning));
         model.addAttribute("kund",kundService.getKundById(bokning.getKund().getId()));
         model.addAttribute("bokning",bokning );
+
+        if(rumService.findEmptyRum(date,endDate,capacity) != null) {
+
+        model.addAttribute("rumFound", rumService.findEmptyRumIgnoreCurrent(date,endDate,capacity,bokning));
         model.addAttribute("date", date);
         model.addAttribute("endDate", endDate);
 
         return "updateBokning";
+
+        } else {
+
+            model.addAttribute("capacity", capacity);
+            model.addAttribute("error", "Start datum måste vara innan slut datum");
+            return "addRumSearch";
+        }
     }
 }
 

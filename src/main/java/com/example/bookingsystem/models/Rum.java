@@ -1,10 +1,7 @@
 package com.example.bookingsystem.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 import lombok.*;
 
@@ -22,14 +19,19 @@ public class Rum {
     @GeneratedValue
     private long id;
 
+   @NotEmpty
    @Min(value = 1, message = "Capacity must be at least 1")
    @Max(value = 4, message = "Capacity cannot be more than 4")
    private int capacity;
 
     // Endast enkelrum eller dubbelrum är tillåtna
-    @Enumerated(EnumType.STRING)
-    private RumTyp type;
+    //@Enumerated(EnumType.STRING)
+    //private RumTyp type;
 
+    @NotEmpty
+    private String type;
+
+    @NotEmpty
     @Min(value = 0, message = "Max extra beds must be at least 0")
     @Max(value = 2, message = "Max extra beds cannot be more than 2")
     private int maxExtraBeds;

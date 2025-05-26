@@ -20,13 +20,14 @@
 </div>
 <form action="/kunder/addSearchRum" method="get">
   <input type="hidden" id="kundId" name="kundId" th:value="${kund.id}">
+  <p th:if="${error}" th:text="${error}" style="color:red;"></p>
   <label for="date">Start Datum</label>
   <input type="date" id="date" name="date" required><br>
   <label for="endDate">Slut Datum</label>
   <input type="date" id="endDate" name="endDate" required><br>
   <label for="extraBeds">Antal Gäster</label>
   <select id="extraBeds" name="capacity">
-    <option th:each="i : ${#numbers.sequence(0,capacity)}"
+    <option th:each="i : ${#numbers.sequence(1,capacity)}"
             th:value="${i}"
             th:text="${i}"
     >
