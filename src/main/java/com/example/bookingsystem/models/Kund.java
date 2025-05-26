@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +36,12 @@ public class Kund {
     @Pattern(regexp = "^[0-9\\-\\+\\s]{7,15}$", message = "Phonenumber can only contain numbers between the size 7-15")
     private String telefonnummer;
 
-    @OneToMany(mappedBy = "kund", cascade = CascadeType.ALL)
-    private List<Bokning> bokningar;
+    @OneToMany(mappedBy = "kund", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Bokning> bokningar = new ArrayList<>(); // Initiera med tom lista
+
+    // getter
+    public List<Bokning> getBokningar() {
+        return bokningar != null ? bokningar : new ArrayList<>(); // Null-check
+    }
 }
