@@ -32,7 +32,7 @@ public class KundController {
     @PostMapping("/postKund")
     public String postKund(@Valid @ModelAttribute("kund") DetaljerKundDto kundDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "kunderForm";
+            return "addKund";
         }
         kundService.addKund(kundDto);
         return "redirect:/kunder/kunderAll";

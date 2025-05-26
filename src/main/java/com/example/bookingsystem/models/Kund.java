@@ -24,7 +24,7 @@ public class Kund {
     private Long id;
     @NotEmpty(message = "Please enter your name")
     @Size(min = 2, max = 50)
-    @Pattern(regexp = "^[A-ZazÅÄÖåäö]+$", message = "Name can only contain letters")
+    @Pattern(regexp = "^[A-Za-zÅÄÖåäö\\s]+$", message = "Name can only contain letters")
     private String name;
     @NotEmpty
     @Size(min = 2, max = 50)
