@@ -30,9 +30,15 @@ public class KundController {
     }
 
     @PostMapping("/postKund")
-    public String postKund(@Valid @ModelAttribute("kund") DetaljerKundDto kundDto, BindingResult bindingResult) {
+    public String postKund(@Valid @ModelAttribute("kund") DetaljerKundDto kundDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "addKund";
+
+            if (kundDto.getId() != null) {
+                DetaljerKundDto kund =kundService.getKundById(kundDto.getId());
+                model.addAttribute("kund", kund);
+                model.addAttribute("name", kund.getName());
+                return "updateKund";
+            } else return "addKund";
         }
         kundService.addKund(kundDto);
         return "redirect:/kunder/kunderAll";

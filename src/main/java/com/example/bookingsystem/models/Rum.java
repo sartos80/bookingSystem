@@ -24,10 +24,6 @@ public class Rum {
    @Max(value = 4, message = "Capacity cannot be more than 4")
    private int capacity;
 
-    // Endast enkelrum eller dubbelrum är tillåtna
-    //@Enumerated(EnumType.STRING)
-    //private RumTyp type;
-
     @NotEmpty
     private String type;
 
