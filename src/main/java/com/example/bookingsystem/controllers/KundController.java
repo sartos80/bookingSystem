@@ -34,10 +34,12 @@ public class KundController {
         if (bindingResult.hasErrors()) {
 
             if (kundDto.getId() != null) {
-                DetaljerKundDto kund =kundService.getKundById(kundDto.getId());
-                model.addAttribute("kund", kund);
-                model.addAttribute("name", kund.getName());
+                DetaljerKundDto startKund = kundService.getKundById(kundDto.getId());
+                model.addAttribute("kund", kundDto);
+                model.addAttribute("startKund", startKund);
+                model.addAttribute("name", startKund.getName());
                 return "updateKund";
+
             } else return "addKund";
         }
         kundService.addKund(kundDto);
@@ -60,6 +62,8 @@ public class KundController {
     @GetMapping("/updateKund/{id}")
     public String updateKund(@PathVariable Long id, Model model) {
         DetaljerKundDto kund = kundService.getKundById(id);
+
+        model.addAttribute("startKund", kund);
         model.addAttribute("kund", kund);
         model.addAttribute("name", kund.getName());
         return "updateKund";
