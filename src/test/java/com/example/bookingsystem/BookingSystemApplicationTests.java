@@ -1,6 +1,6 @@
 package com.example.bookingsystem;
 
-import com.example.bookingsystem.dtos.BokningDto;
+
 import com.example.bookingsystem.dtos.DetaljerKundDto;
 import com.example.bookingsystem.dtos.KundDto;
 import com.example.bookingsystem.models.Kund;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,12 +45,6 @@ class BookingSystemApplicationTests {
         String phone1 = "48332920";
         String phone2 = "58343265";
 
-        LocalDate date1 = LocalDate.of(2025, 7, 1);
-        LocalDate date2 = LocalDate.of(2025, 6, 2);
-
-    //BokningDto bokningDto1 = new BokningDto(null,date1);
-    //BokningDto bokningDto2 = new BokningDto(null,date2);
-
         Kund kund1 = new Kund(null, name1, email1, phone1, List.of());
         Kund kund2 = new Kund(null, name2, email2, phone2, List.of());
 
@@ -71,7 +64,7 @@ class BookingSystemApplicationTests {
     public void getAllKunderTest(){
         List<DetaljerKundDto> allaKunder = kundService.getAllKunder();
 
-        assertTrue(allaKunder.size() == 2);
+        assertEquals(allaKunder.size(), 2);
         assertTrue(allaKunder.stream().map(k -> k.getName()).toList().contains("Janne"));
         assertTrue(allaKunder.stream().map(k -> k.getEpost()).toList().contains("stina@mail"));
         assertFalse(allaKunder.stream().map(k -> k.getTelefonnummer()).toList().contains("0"));
@@ -80,12 +73,13 @@ class BookingSystemApplicationTests {
     @Test
     public void addKund(){
         DetaljerKundDto nyKund = new DetaljerKundDto(null, "Pelle", "pelle@mail.com", "0701234567", List.of());
-
+        assertEquals(kundService.getAllKunder().size(), 2);
         kundService.addKund(nyKund);
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
 
         assertEquals(3, kunder.size());
         assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Pelle"));
+        assertTrue(kunder.stream().map(k -> k.getEpost()).toList().contains("pelle@mail.com"));
     }
 
     @Test
@@ -93,7 +87,7 @@ class BookingSystemApplicationTests {
         DetaljerKundDto kund = kundService.getKundById(kund1.getId());
         assertEquals(kund.getName(), kund1.getName());
         assertEquals(kund.getEpost(), kund1.getEpost());
-        assertNotEquals(kund.getBokningar(), kund2.getTelefonnummer());
+        assertEquals(kund.getTelefonnummer(), kund1.getTelefonnummer());
     }
 
     @Test
@@ -101,9 +95,8 @@ class BookingSystemApplicationTests {
     {
         kundService.deleteKund(kund1.getId());
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
-        assertFalse(kunder.contains(kund1));
+        assertFalse(kunder.stream().map(k -> k.getId()).toList().contains(kund1.getId()));
         assertTrue(kunder.stream().map(k -> k.getName()).toList().contains(kund2.getName()));
-        System.out.println(kunder + " här");
     }
 
 
@@ -119,10 +112,10 @@ class BookingSystemApplicationTests {
     {
         DetaljerKundDto detaljerKundDto = kundService.kundToDetaljerKundDto(kund2);
 
+        assertEquals(detaljerKundDto.getId(), kund2.getId());
         assertEquals(detaljerKundDto.getName(), detaljerKundDto2.getName());
         assertEquals(detaljerKundDto.getEpost(), detaljerKundDto2.getEpost());
         assertEquals(detaljerKundDto.getTelefonnummer(), detaljerKundDto2.getTelefonnummer());
-        assertNotEquals(detaljerKundDto.getId(), detaljerKundDto1.getId());
     }
 
     @Test
@@ -130,7 +123,7 @@ class BookingSystemApplicationTests {
     {
         Kund kund = kundService.DetaljerKundDtoToKund(detaljerKundDto1);
         assertEquals(kund.getName(), detaljerKundDto1.getName());
-        assertEquals(kund.getEpost(), "hans@mail");
+        assertEquals(kund.getEpost(), detaljerKundDto1.getEpost());
         assertEquals(kund.getTelefonnummer(), detaljerKundDto1.getTelefonnummer());
     }
 }
