@@ -1,10 +1,6 @@
 package com.example.bookingsystem.controllers;
-
-import com.example.bookingsystem.dtos.DetaljerBokningDto;
 import com.example.bookingsystem.dtos.DetaljerKundDto;
-import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
-import com.example.bookingsystem.services.RumService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,16 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(path="/kunder")
 public class KundController {
 
     private final KundService kundService;
-    private final BokningService bokningService;
-    private final RumService rumService;
 
     @GetMapping("/addKund")
     public String getKundForm(Model model) {

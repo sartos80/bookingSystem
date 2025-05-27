@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Builder
 public class DetaljerBokningDto {
     private Long id;
-    //Kontrollerar att datumen inte är null.
     @NotNull(message = "Start date must not be null")
     private LocalDate date;
     @NotNull(message = "End date must not be null")

@@ -1,7 +1,6 @@
 package com.example.bookingsystem.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
 import lombok.*;
 

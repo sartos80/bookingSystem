@@ -1,10 +1,6 @@
 package com.example.bookingsystem.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,10 +25,10 @@ public class Kund {
 
     @OneToMany(mappedBy = "kund", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
-    private List<Bokning> bokningar = new ArrayList<>(); // Initiera med tom lista
+    private List<Bokning> bokningar = new ArrayList<>();
 
-    // getter
+
     public List<Bokning> getBokningar() {
-        return bokningar != null ? bokningar : new ArrayList<>(); // Null-check
+        return bokningar != null ? bokningar : new ArrayList<>();
     }
 }
