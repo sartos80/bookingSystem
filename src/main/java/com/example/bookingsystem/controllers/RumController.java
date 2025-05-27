@@ -65,7 +65,7 @@ public class RumController {
 
         } else {
 
-            model.addAttribute("capacity", capacity);
+            model.addAttribute("capacity", rumService.roomMaxCapacity());
             model.addAttribute("error", "Start datum måste vara innan slut datum");
             return "addRumSearch";
         }
