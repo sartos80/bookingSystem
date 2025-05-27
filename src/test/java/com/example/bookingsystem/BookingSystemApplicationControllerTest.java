@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -31,13 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Rollback
 public class BookingSystemApplicationControllerTest
 {
-    @Test
-    void contextLoads()
-    {
-    }
-
-    //Resttemplate
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -61,9 +56,9 @@ public class BookingSystemApplicationControllerTest
     }
 
     @Test
-    public void returntest() throws Exception
+    void contextLoads()
     {
-        mockMvc.perform(get("/kunder/kunderAll")).andExpect(status().isOk()).andReturn();
+        assertThat(mockMvc).isNotNull();
     }
 
     @Test
@@ -85,7 +80,7 @@ public class BookingSystemApplicationControllerTest
     {
         MvcResult result = mockMvc.perform(get("/kunder/addKund"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("kunderForm"))
+                .andExpect(view().name("addKund"))
                 .andExpect(model().attribute("kund", Matchers.instanceOf(DetaljerKundDto.class)))
                 .andExpect(model().attributeExists("kund"))
                 .andReturn();
@@ -97,19 +92,42 @@ public class BookingSystemApplicationControllerTest
     @Test
     public void postKundTest() throws Exception
     {
-        String json = """
-                {
-                "name":"Hans",
-                "epost":"hans@mail.com",
-                "telefonnummer":"0731234567"
-                }
-                """;
-
         mockMvc.perform(post("/kunder/postKund")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(json))
-        .andExpect(status().is3xxRedirection())
-        .andReturn();
+                        .param("name", "Hans")
+                        .param("epost", "hans@mail.com")
+                        .param("telefonnummer", "0731234567"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/kunder/kunderAll"))
+                .andReturn();
+
+        assertEquals(3, kundRepo.findAll().size());
+    }
+
+    @Test
+    public void deleteKundTest() throws Exception
+    {
+        Long id = kund1.getId();
+
+        mockMvc.perform(get("/kunder/deleteKund/" + id))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/kunder/kunderAll"))
+                .andReturn();
+
+        assertFalse(kundRepo.findById(id).isPresent());
+    }
+
+    @Test
+    public void updateKundTest() throws Exception
+    {
+        Kund kund = kundRepo.save(new Kund(null, "Cecar", "ella@mail.com", "070112233", List.of()));
+        Long id = kund.getId();
+
+        mockMvc.perform(get("/kunder/updateKund/" + id))
+                .andExpect(status().isOk())
+                .andExpect(view().name("updateKund"))
+                .andExpect(model().attributeExists("kund"))
+                .andExpect(model().attribute("kund", Matchers.hasProperty("name", Matchers.equalTo("Cecar"))))
+                .andExpect(model().attribute("name", "Cecar"));
 
     }
 }
