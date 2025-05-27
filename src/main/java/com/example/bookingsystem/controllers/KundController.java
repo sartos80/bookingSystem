@@ -2,19 +2,17 @@ package com.example.bookingsystem.controllers;
 
 import com.example.bookingsystem.dtos.DetaljerBokningDto;
 import com.example.bookingsystem.dtos.DetaljerKundDto;
-import com.example.bookingsystem.models.Kund;
-import com.example.bookingsystem.repo.KundRepo;
 import com.example.bookingsystem.services.BokningService;
 import com.example.bookingsystem.services.KundService;
 import com.example.bookingsystem.services.RumService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,11 +26,20 @@ public class KundController {
     @GetMapping("/addKund")
     public String getKundForm(Model model) {
         model.addAttribute("kund", new DetaljerKundDto());
-        return "kunderForm";
+        return "addKund";
     }
 
     @PostMapping("/postKund")
-    public String postKund(@ModelAttribute DetaljerKundDto kundDto) {
+    public String postKund(@Valid @ModelAttribute("kund") DetaljerKundDto kundDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+
+            if (kundDto.getId() != null) {
+                DetaljerKundDto kund =kundService.getKundById(kundDto.getId());
+                model.addAttribute("kund", kund);
+                model.addAttribute("name", kund.getName());
+                return "updateKund";
+            } else return "addKund";
+        }
         kundService.addKund(kundDto);
         return "redirect:/kunder/kunderAll";
     }
@@ -57,56 +64,4 @@ public class KundController {
         model.addAttribute("name", kund.getName());
         return "updateKund";
     }
-
-    @GetMapping("/addBokning/{id}")
-    public String addBokning(@PathVariable Long id, Model model) {
-        DetaljerKundDto kund = kundService.getKundById(id);
-        model.addAttribute("kund", kund);
-        model.addAttribute("name", kund.getName());
-        return "rumSearch";
-    }
-
-
-
-    @GetMapping("/deleteBokning/{id}")
-    public String deleteBokning(@PathVariable Long id) {
-        bokningService.deleteBokning(id);
-        return "redirect:/kunder/kunderAll";
-    }
-
-    @GetMapping("/updateBokning/{id}")
-    public String updateBokning(@PathVariable Long id, Model model) {
-        DetaljerBokningDto bokning = bokningService.getBokningById(id);
-        model.addAttribute("name", "Bokning");
-        model.addAttribute("bokning", bokning);
-        return "updateBokning";
-    }
-
-    @PostMapping("/postBokning")
-    public String postBokning(@ModelAttribute DetaljerBokningDto bokningDto) {
-        bokningService.addBokning(bokningDto);//
-        return "redirect:/kunder/kunderAll";
-    }
-
-    @GetMapping("/searchRum")
-    public String searchRum(@RequestParam LocalDate date,
-                            @RequestParam LocalDate endDate,
-                            @RequestParam Long kundId, Model model) {
-        DetaljerKundDto kund = kundService.getKundById(kundId);
-        model.addAttribute("rumFound", rumService.findEmptyRum(date,endDate));
-        model.addAttribute("kund",kund );
-        //model.addAttribute("name", kund.getName());
-        model.addAttribute("date", date);
-        model.addAttribute("endDate", endDate);
-
-        return "addBokning";
-    }
-/*
-    @PostMapping("/updateKund")
-    public String updateKund(@ModelAttribute DetaljerKundDto kundDto) {
-        kundService.addKund(kundDto); // addKund hanterar både ny & uppdaterad pga ID
-        return "redirect:/kunder/kunderAll";
-    }
-
- */
 }

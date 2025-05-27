@@ -7,27 +7,47 @@
 <body>
 <div class="kund">
   <table>
-    <th th:text="${name}"></th>
+    <th th:text="${kund.name}"></th>
     <tbody>
     <tr>
-      <td th:text="${bokning.date}"></td>
+      <td th:text="${kund.epost}"></td>
     </tr>
     <tr>
-      <td th:text="${bokning.rum.id}"></td>
+      <td th:text="${kund.telefonnummer}"></td>
+    </tr>
+    <tr>
+      <td th:text="${date} +' to '+ ${endDate}"></td>
     </tr>
     </tbody>
   </table>
 </div>
-<form action="/kunder/postBokning" method="post">
-  <input type="hidden" id="id" name="id" th:value="${bokning.id}">
-  <input type="hidden" id="kundId" name="kund.id" th:value="${bokning.kund.id}">
-  <label for="date">Date</label>
-  <input type="date" id="date" name="date" th:value="${bokning.date}"><br>
-  <label for="endDate" >End Date</label>
-  <input type="date" id="endDate" name="endDate" th:value="${bokning.endDate}"><br>
-  <label for="rum.id" >Rum</label>
-  <input type="text" id="rum.id" name="rum.id" th:value="${bokning.rum.id}"><br>
-  <input type="submit" value="Submit">
-</form>
+
+<div class="rumFound" th:unless="${#lists.isEmpty(rumFound)}">
+  <table>
+    <th>Rum</th>
+    <tbody th:each="rum : ${rumFound}">
+    <tr>
+      <td th:text="'Nr:'+ ${rum.id}+' '+${rum.type}+', '"></td>
+      <td>
+        <form action="/kunder/postBokning" method="post">
+          <input type="hidden" id="id" name="id" th:value="${bokning.id}">
+          <input type="hidden" id="kund.id" name="kund.id" th:value="${kund.id}">
+          <input type="hidden" id="rum.id" name="rum.id" th:value="${rum.id}">
+          <input type="hidden" id="date" name="date" th:value="${date}">
+          <input type="hidden" id="endDate" name="endDate" th:value="${endDate}">
+          <label for="extraBeds">Extra Sängar</label>
+          <select id="extraBeds" name="extraBeds">
+            <option th:each="i : ${#numbers.sequence(0,rum.MaxExtraBeds)}"
+                    th:value="${i}"
+                    th:text="${i}"
+            >
+            </option>
+          </select>
+          <input type="submit" value="boka">
+        </form>
+      </td>
+    </tbody>
+  </table>
+</div>
 </body>
 </html>

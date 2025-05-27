@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Add new customer</h1>
+<form th:action="@{/kunder/postKund}" th:object="${kund}" method="post">
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></p>
+    <label for="name">Namn</label>
+    <input type="text" id="name" th:field="*{name}" />
+    <br>
+    <p th:if="${#fields.hasErrors('epost')}" th:errors="*{epost}" style="color: red;"></p>
+    <label for="epost">E-post</label>
+    <input type="text" id="epost" th:field="*{epost}" />
+    <br>
+    <p th:if="${#fields.hasErrors('telefonnummer')}" th:errors="*{telefonnummer}" style="color: red;"></p>
+    <label for="telefonnummer">Telefonnummer</label>
+    <input type="text" id="telefonnummer" th:field="*{telefonnummer}" />
+    <br>            <input type="submit" value="Skicka">
+</form>
+</body>
+</html>
