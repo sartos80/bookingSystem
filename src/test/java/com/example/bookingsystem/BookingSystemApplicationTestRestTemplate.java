@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BookingSystemApplicationTestRestTemplate
@@ -45,6 +45,11 @@ public class BookingSystemApplicationTestRestTemplate
     }
 
     @Test
+    void contextLoads() {
+        assertThat(restTemplate).isNotNull();
+    }
+
+    @Test
     public void getKundFormTest(){
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/kunder/addKund", String.class)).contains("Kunder");
     //ev lägga till fler contains när html är uppdaterad
@@ -52,7 +57,7 @@ public class BookingSystemApplicationTestRestTemplate
 
     @Test
     public void getAllKunderTest(){
-        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/kunder/kunderAll", String.class);
+        ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/kunder/kunderAll", String.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getHeaders().getContentType().toString()).contains("text/html");

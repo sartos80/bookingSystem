@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,11 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Rollback
 public class BookingSystemApplicationControllerTest
 {
-    @Test
-    void contextLoads()
-    {
-    }
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -60,9 +56,9 @@ public class BookingSystemApplicationControllerTest
     }
 
     @Test
-    public void returntest() throws Exception
+    void contextLoads()
     {
-        mockMvc.perform(get("/kunder/kunderAll")).andExpect(status().isOk()).andReturn();
+        assertThat(mockMvc).isNotNull();
     }
 
     @Test
