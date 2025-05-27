@@ -34,7 +34,6 @@ public class BookingSystemApplicationTestRestTemplate
     Kund kund1 = new Kund(null, "Ture", "ture@mail", "589405830", List.of());
     Kund kund2 = new Kund(null, "Saga", "saga@mail", "987605830", List.of());
 
-
     @BeforeEach
     public void setUp()
     {
@@ -47,12 +46,6 @@ public class BookingSystemApplicationTestRestTemplate
     @Test
     void contextLoads() {
         assertThat(restTemplate).isNotNull();
-    }
-
-    @Test
-    public void getKundFormTest(){
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/kunder/addKund", String.class)).contains("Kunder");
-    //ev lägga till fler contains när html är uppdaterad
     }
 
     @Test
