@@ -31,16 +31,19 @@ public class BookingSystemApplicationTestRestTemplate
     @Autowired
     private BokningRepo bokningRepo;
 
-    Kund kund1 = new Kund(null, "Ture", "ture@mail", "589405830", List.of());
-    Kund kund2 = new Kund(null, "Saga", "saga@mail", "987605830", List.of());
+    Kund kund1;
+    Kund kund2;
 
     @BeforeEach
     public void setUp()
     {
+        kund1 = new Kund(null, "Ture", "ture@mail", "589405830", List.of());
+        kund2 = new Kund(null, "Saga", "saga@mail", "987605830", List.of());
+
         bokningRepo.deleteAll();
         kundRepo.deleteAll();
-        kundRepo.save(kund1);
-        kundRepo.save(kund2);
+        kund1 = kundRepo.save(kund1);
+        kund2 = kundRepo.save(kund2);
     }
 
     @Test
@@ -53,7 +56,7 @@ public class BookingSystemApplicationTestRestTemplate
         ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/kunder/kunderAll", String.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getHeaders().getContentType().toString()).contains("text/html");
+        assertThat(response.getHeaders().getContentType().toString()).startsWith("text/html");
         assertThat(response.getBody()).contains("/kunder/updateKund/");
         assertThat(response.getBody()).contains("/kunder/addKund");
         assertThat(response.getBody()).contains(kund1.getName());
@@ -70,7 +73,7 @@ public class BookingSystemApplicationTestRestTemplate
         ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/kunder/updateKund/"+id, String.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getHeaders().getContentType().toString()).contains("text/html");
+        assertThat(response.getHeaders().getContentType().toString()).startsWith("text/html");
         assertThat(response.getBody()).contains(kund1.getName());
         assertThat(response.getBody()).doesNotContain(kund2.getEpost());
     }

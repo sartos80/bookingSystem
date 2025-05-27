@@ -42,17 +42,20 @@ public class BookingSystemApplicationControllerTest
     @Autowired
     private BokningRepo bokningRepo;
 
-    Kund kund1 = new Kund(null, "Ture", "ture@mail", "589405830", List.of());
-    Kund kund2 = new Kund(null, "Saga", "saga@mail", "987605830", List.of());
+    Kund kund1;
+    Kund kund2;
 
 
     @BeforeEach
     public void setUp()
     {
+        kund1 = new Kund(null, "Ture", "ture@mail", "589405830", List.of());
+        kund2 = new Kund(null, "Saga", "saga@mail", "987605830", List.of());
+
         bokningRepo.deleteAll();
         kundRepo.deleteAll();
-        kundRepo.save(kund1);
-        kundRepo.save(kund2);
+        kund1 = kundRepo.save(kund1);
+        kund2 = kundRepo.save(kund2);
     }
 
     @Test
@@ -71,8 +74,6 @@ public class BookingSystemApplicationControllerTest
                .andExpect(model().attribute("allKunder", Matchers.hasSize(2)))
                .andExpect(model().attributeExists("name"))
                 .andReturn();
-
-        System.out.println(result.getResponse().getContentAsString());
     }
 
     @Test
@@ -84,9 +85,6 @@ public class BookingSystemApplicationControllerTest
                 .andExpect(model().attribute("kund", Matchers.instanceOf(DetaljerKundDto.class)))
                 .andExpect(model().attributeExists("kund"))
                 .andReturn();
-
-        String response = result.getResponse().getContentAsString();
-        System.out.println(response);
     }
 
     @Test
@@ -119,15 +117,12 @@ public class BookingSystemApplicationControllerTest
     @Test
     public void updateKundTest() throws Exception
     {
-        Kund kund = kundRepo.save(new Kund(null, "Cecar", "ella@mail.com", "070112233", List.of()));
-        Long id = kund.getId();
-
-        mockMvc.perform(get("/kunder/updateKund/" + id))
+        mockMvc.perform(get("/kunder/updateKund/" + kund1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("updateKund"))
                 .andExpect(model().attributeExists("kund"))
-                .andExpect(model().attribute("kund", Matchers.hasProperty("name", Matchers.equalTo("Cecar"))))
-                .andExpect(model().attribute("name", "Cecar"));
+                .andExpect(model().attribute("kund", Matchers.hasProperty("name", Matchers.equalTo("Ture"))))
+                .andExpect(model().attribute("name", "Ture"));
 
     }
 }

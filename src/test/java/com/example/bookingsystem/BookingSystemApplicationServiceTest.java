@@ -40,8 +40,8 @@ public class BookingSystemApplicationServiceTest
     String phone1 = "48332920";
     String phone2 = "58343265";
 
-    Kund kund1 = new Kund(null, name1, email1, phone1, List.of());
-    Kund kund2 = new Kund(null, name2, email2, phone2, List.of());
+    Kund kund1;
+    Kund kund2;
 
     DetaljerKundDto detaljerKundDto1 = new DetaljerKundDto(null, "Hans", "hans@mail", "0728337645", List.of());
     DetaljerKundDto detaljerKundDto2 = DetaljerKundDto.builder().id(null).name(name2).epost(email2).telefonnummer(phone2).bokningar(List.of()).build();
@@ -49,10 +49,13 @@ public class BookingSystemApplicationServiceTest
     @BeforeEach
     public void setUp()
     {
+        kund1 = new Kund(null, name1, email1, phone1, List.of());
+        kund2 = new Kund(null, name2, email2, phone2, List.of());
+
         bokningRepo.deleteAll();
         kundRepo.deleteAll();
-        kundRepo.save(kund1);
-        kundRepo.save(kund2);
+        kund1 = kundRepo.save(kund1);
+        kund2 = kundRepo.save(kund2);
     }
 
     @Test
@@ -72,7 +75,7 @@ public class BookingSystemApplicationServiceTest
         kundService.addKund(nyKund);
         List<DetaljerKundDto> kunder = kundService.getAllKunder();
 
-        assertEquals(3, kunder.size());
+        assertEquals(kunder.size(),3 );
         assertTrue(kunder.stream().map(k -> k.getName()).toList().contains("Pelle"));
         assertTrue(kunder.stream().map(k -> k.getEpost()).toList().contains("pelle@mail.com"));
     }
