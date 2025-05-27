@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//Behövs inte?
 public class RumDto {
     private Long id;
     private String type;

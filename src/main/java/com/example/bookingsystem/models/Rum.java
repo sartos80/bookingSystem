@@ -18,18 +18,8 @@ public class Rum {
     @Id
     @GeneratedValue
     private long id;
-
-   @NotEmpty
-   @Min(value = 1, message = "Capacity must be at least 1")
-   @Max(value = 4, message = "Capacity cannot be more than 4")
-   private int capacity;
-
-    @NotEmpty
+    private int capacity;
     private String type;
-
-    @NotEmpty
-    @Min(value = 0, message = "Max extra beds must be at least 0")
-    @Max(value = 2, message = "Max extra beds cannot be more than 2")
     private int maxExtraBeds;
 
     @OneToMany(mappedBy = "rum", cascade = CascadeType.ALL, orphanRemoval = true)

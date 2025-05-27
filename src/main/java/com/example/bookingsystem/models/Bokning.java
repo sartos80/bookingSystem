@@ -21,21 +21,15 @@ public class Bokning {
     @Id
     @GeneratedValue
     private Long id;
-    //Kontrollerar att datumen inte är null.
-    @NotNull(message = "Start date must not be null")
     private LocalDate date;
-    @NotNull(message = "End date must not be null")
     private LocalDate endDate;
-    @Min(value = 0, message = "Extra beds must be at least 0")
     private int extraBeds;
 
     @ManyToOne
     @JoinColumn(name="kund_Id")
-    @NotNull(message = "bokning must have a kund")
     private Kund kund;
 
     @ManyToOne
     @JoinColumn(name="rum_id")
-    @NotNull(message = "bokning must have a rum")
     private Rum rum;
 }
